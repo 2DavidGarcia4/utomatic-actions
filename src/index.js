@@ -1,12 +1,14 @@
 const { Client } = require('discord.js-selfbot-v13')
 const User = new Client({checkUpdate: false, presence: {status: 'invisible'}})
 const { inspect } = require('util')
+const { whatIs } = require('./config'), { owners } = require('./db')
+const { registerReady } = require('./utils')
+require('./lastBot')
 
-const sprintTools = require('./config')
-const owners = ['717420870267830382', '551146834941313026', '853063286320922634']
+const { statusCommand } = require('./commands/status')
 
 User.on('ready', async () => {
-  console.log(User.user.username, 'Hola, estoy listo')
+  registerReady(User, 'Etoy listo')
   //554446119602749488
   const nexxuzServer = User.guilds.cache.get('554446119602749488')
   // farmeo-3
@@ -32,8 +34,8 @@ User.on('ready', async () => {
 User.on('messageCreate', (msg) => {
   if(msg.author.bot) return
 
-  if(owners.some(s=> s==msg.author.id) && msg.content == '|stats') msg.reply({allowedMentions: {repliedUser: false}, content: 'Online'}) 
+  if(owners.some(s=> s==msg.author.id) && msg.content == 'd|status') statusCommand(msg)
 })
 
 
-User.login(sprintTools)
+User.login(whatIs)
