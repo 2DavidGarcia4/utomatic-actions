@@ -20,7 +20,6 @@ const registerReady = (client, text) => {
  * @param {string} template 
  */
 const sendTemplate = async (client, channelId, template) => {
-  console.log({channelId})
   const channel = client.channels.cache.get(channelId)
   if(channel){
     channel.messages.fetch({limit: 10}).then(messages=> {
