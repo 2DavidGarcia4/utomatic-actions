@@ -14,10 +14,10 @@ Sprint.on('ready', async () => {
   const temsg = await templatesChannel.messages.fetch('1065338914992312320')
   template = temsg.content
 
-  templatesChannel.topic.split(/ +/g).forEach(f=> sendTemplate(Sprint, f, template))
-  setInterval(()=> {
-    templatesChannel.topic.split(/ +/g).forEach(f=> sendTemplate(Sprint, f, template))
-  }, 2*60*60000)
+  // templatesChannel.topic.split(/ +/g).forEach(f=> sendTemplate(Sprint, f, template))
+  // setInterval(()=> {
+  //   templatesChannel.topic.split(/ +/g).forEach(f=> sendTemplate(Sprint, f, template))
+  // }, 2*60*60000)
   
 })
 
