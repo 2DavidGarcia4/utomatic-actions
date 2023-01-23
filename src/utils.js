@@ -21,10 +21,10 @@ const registerReady = (client, text) => {
  */
 const sendTemplate = async (client, channelId, template) => {
   const channel = client.channels.cache.get(channelId)
-  if(channel){
+  if(channel && channel.sendable){
     channel.messages.fetch({limit: 10}).then(messages=> {
       if(!messages.map(m=> m).slice(0, 4).some(s=> s.author.id==client.user.id)){
-        channel.sendTyping().catch()
+        channel.sendTyping().catch(e=> console.log(e))
         setTimeout(()=> channel.send(template).catch(e=> console.log(e)), 3000)
       }
     })
