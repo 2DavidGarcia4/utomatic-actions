@@ -17,14 +17,22 @@ Sprint.on('ready', async () => {
   templatesChannel.topic.split(/ +/g).forEach(f=> sendTemplate(Sprint, f, template))
   setInterval(()=> {
     templatesChannel.topic.split(/ +/g).forEach(f=> sendTemplate(Sprint, f, template))
-  }, 2*60*60000)
+  }, 24*60*60000)
   
 })
 
-Sprint.on('messageCreate', (msg) => {
+Sprint.on('messageCreate', async (msg) => {
   if(msg.author.bot) return
 
   if(owners.some(s=> s==msg.author.id) && msg.content == 'e|status') statusCommand(msg)
+  if(owners.some(s=> s==msg.author.id) && msg.content == 'e|promo') {
+    const myServer = Sprint.guilds.cache.get('1064289165879025836')
+    const templatesChannel = myServer.channels.cache.get('1064289168122978445')
+    const temsg = await templatesChannel.messages.fetch('1065338914992312320')
+    template = temsg.content
+
+    templatesChannel.topic.split(/ +/g).forEach(f=> sendTemplate(Sprint, f, template))
+  } 
 })
 
 
